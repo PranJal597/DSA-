@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int maxlen=INT_MIN;
+        int hash[256]={0};
+        int i=0,j=0;
+        while(j<s.size()&&i<s.size())
+        {
+            if(hash[s[j]]==1){
+                if((j-i)>maxlen){
+                    maxlen=j-i;
+                }
+                while(s[i]!=s[j]){
+                    hash[s[i]]--;
+                    i++;
+                }
+                i++;
+                j++;
+            }
+            else{
+                hash[s[j]]++;
+                j++;
+            }
+        }
+        if(j-i>maxlen){
+            maxlen=j-i;
+        }
+        return maxlen;
+    }
+};
