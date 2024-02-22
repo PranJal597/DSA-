@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int partitionArray(vector<int>& input, int start, int end) {
+    int pivot = input[start];
+    int i = start;
+    int j = end;
+    while (i < j) {
+        while (input[i] <= pivot && i <= end - 1) {
+            i++;
+        }
+        while (input[j] > pivot && j >= start + 1) {
+            j--;
+        }
+        if (i < j) {
+            swap(input[i], input[j]);
+        }
+    }
+    swap(input[start], input[j]);
+    return j;
+}
+
+void quickSort(vector<int>& input, int start, int end) {
+    if (start < end) {
+        int indexp = partitionArray(input, start, end);
+        quickSort(input, start, indexp - 1);
+        quickSort(input, indexp + 1, end);
+    }
+}
+
+int main() {
+    vector<int> input;
+    int size;
+    
+    cout << "Enter the size of the array: ";
+    cin >> size;
+
+    cout << "Enter " << size << " integers:\n";
+    for (int i = 0; i < size; ++i) {
+        int num;
+        cin >> num;
+        input.push_back(num);
+    }
+
+    quickSort(input, 0, size - 1);
+
+    cout << "Sorted array: ";
+    for (int i = 0; i < size; ++i) {
+        cout << input[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
